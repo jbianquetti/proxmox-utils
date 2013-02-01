@@ -6,6 +6,7 @@ import sys
 import subprocess
 import logging
 import optparse
+import random
 
 from proxmox_utils import KVMUtils, ShellUtils
                     
@@ -13,7 +14,7 @@ def main():
   # ---------------------------------------------------------------
   # Option handling
   # ---------------------------------------------------------------
-  usage = "usage: %prog [options] <template-name> <id-to>"
+  usage = "usage: %prog [options] <template-name> <new_name>"
   parser = optparse.OptionParser(usage)
   
   options, args = parser.parse_args()
@@ -25,7 +26,9 @@ def main():
   # Grab options
   # ---------------------------------------------------------------
   template_name = args[0]
-  id_to = args[1]
+  id_to  = args[1]
+
+  #id_to = random.randrange(200,30000)
   
   if not id_to.isdigit():
     raise Exception("The targed id must be numeric.")
@@ -63,7 +66,7 @@ def main():
   # Tweaking configuration file and start machine
   # ---------------------------------------------------------------
   logging.info("Changing configuration file...")
-  ShellUtils.command(['qm', 'set', '-name' , 'tsc'+id_to ,  id_to ])
+  ShellUtils.command(['qm', 'set', '-name' , 'tsc'+id_to  ,  id_to ]  )
   ShellUtils.command(['qm', 'set', '-net0', 'virtio,bridge=vmbr0', id_to ])
   ShellUtils.command(['qm', 'set', '-virtio0', 'local:'+id_to+'/vm-102-disk-1.qcow2,size=80G', id_to ])
   ShellUtils.command(['qm', 'start', id_to ])
