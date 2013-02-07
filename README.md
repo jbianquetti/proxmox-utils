@@ -44,6 +44,7 @@ Feel free to fork and improve this project!
 
   This fully removes a KVM machine and it's configuration. You can also delete such a machine
   directly via the Proxmox Web Interface, however a few files will be left out by Proxmox.
+  DO NOT ASK NOTHING.
 
 ./kvm-create-template <machine-id> <template-name>
   
@@ -57,5 +58,7 @@ Feel free to fork and improve this project!
 
 ./kvm-activate-template <template-name> <to-id>
 
-  This copies over an existing template to a machine of a certain ID.
+  This copies over an existing template to a machine of a certain ID. Name, network interface  and image file
+  location (harcoded, sorry)  are  assigned. Also boots machine. DO NOT ASK NOTHING.
+
 ```
